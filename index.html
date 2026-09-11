@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Atom — tmiland-lab revival</title>
+<style>
+:root{color-scheme:dark}body{font-family:system-ui,-apple-system,sans-serif;background:#1a1d23;color:#e6e8eb;max-width:720px;margin:0 auto;padding:2rem 1.2rem;line-height:1.55}a{color:#7db5f5}h1{font-size:1.9rem;margin:.2em 0}.tag{color:#9aa3ad}.card{background:#23272e;border:1px solid #343a43;border-radius:10px;padding:1rem 1.2rem;margin:1rem 0}.btn{display:inline-block;background:#2f6f4f;color:#fff!important;border-radius:8px;padding:.45rem .9rem;margin:.25rem .35rem .25rem 0;text-decoration:none}code{background:#0f1114;padding:.1em .35em;border-radius:5px}table{border-collapse:collapse;width:100%}td,th{border-bottom:1px solid #343a43;padding:.35rem .5rem;text-align:left;font-size:.92rem}.note{font-size:.88rem;color:#9aa3ad}
+</style>
+<h1>Atom <span class="tag">— tmiland-lab revival</span></h1>
+<p>Active fork of <a href="https://github.com/atom/atom">atom/atom</a> <code>v1.63.1</code>, climbing Electron rung-by-rung on pure lineage (this tree + our patches, stock Electron). Upstream archived Atom in Dec 2022; this fork builds, tests, and ships every rung.</p>
+<div class="card" id="latest"><strong>Latest release:</strong> <span id="ver">loading…</span><div id="assets"></div>
+<p class="note">Links resolve live from the <a href="https://github.com/tmiland-lab/atom/releases">releases page</a> — always current.</p></div>
+<div class="card"><strong>Install (Linux)</strong><br><code>sudo dpkg -i atom-amd64.deb</code> &nbsp;or&nbsp; <code>sudo rpm -i atom.x86_64.rpm</code><br><span class="note">macOS <code>atom-mac.zip</code> and Windows installer in progress (unsigned builds).</span></div>
+<div class="card"><strong>Packages</strong> — no registry: <code>apm install owner/repo</code> straight from GitHub.<br><strong>AI coding:</strong> <a href="https://github.com/tmiland-lab/atom-ai">tmiland-lab/atom-ai</a> <code>apm install tmiland-lab/atom-ai</code></div>
+<div class="card"><strong>Chase ladder</strong><table><tr><th>Base</th><th>Rungs</th><th>Notes</th></tr><tr><td>debian13.1</td><td>Electron 11</td><td>modern-Debian baseline, CI .deb</td></tr><tr><td>e13.1 → e36.1</td><td>Electron 13 → 36</td><td>every rung CI-built + released</td></tr></table><p class="note">Per-rung reports: <a href="https://github.com/tmiland-lab/atom/issues/1">issue #1</a>. Build recipe: <a href="https://github.com/tmiland-lab/atom/blob/electron-upgrade-e36/docs/building-debian13.md">docs/building-debian13.md</a>. Source: <a href="https://github.com/tmiland-lab/atom">tmiland-lab/atom</a>.</p></div>
+<script>
+fetch("https://api.github.com/repos/tmiland-lab/atom/releases/latest").then(r=>r.json()).then(d=>{
+document.getElementById("ver").textContent=d.tag_name+" ("+d.published_at.slice(0,10)+")";
+let box=document.getElementById("assets");box.innerHTML="";
+(d.assets||[]).forEach(a=>{let b=document.createElement("a");b.className="btn";b.href=a.browser_download_url;b.textContent=a.name;box.appendChild(b);});
+}).catch(()=>{document.getElementById("ver").textContent="see releases page";});
+</script>
