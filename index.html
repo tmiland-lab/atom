@@ -4,19 +4,75 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Atom — tmiland-lab revival</title>
 <style>
-:root{color-scheme:dark}body{font-family:system-ui,-apple-system,sans-serif;background:#1a1d23;color:#e6e8eb;max-width:720px;margin:0 auto;padding:2rem 1.2rem;line-height:1.55}a{color:#7db5f5}h1{font-size:1.9rem;margin:.2em 0}.tag{color:#9aa3ad}.card{background:#23272e;border:1px solid #343a43;border-radius:10px;padding:1rem 1.2rem;margin:1rem 0}.btn{display:inline-block;background:#2f6f4f;color:#fff!important;border-radius:8px;padding:.45rem .9rem;margin:.25rem .35rem .25rem 0;text-decoration:none}code{background:#0f1114;padding:.1em .35em;border-radius:5px}table{border-collapse:collapse;width:100%}td,th{border-bottom:1px solid #343a43;padding:.35rem .5rem;text-align:left;font-size:.92rem}.note{font-size:.88rem;color:#9aa3ad}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;background:#2b2f35;color:#efefef;-webkit-font-smoothing:antialiased}
+a{color:#7db5f5;text-decoration:none}
+/* hero */
+.hero{background:#33373d;text-align:center;padding:64px 20px 0;position:relative;overflow:hidden}
+.hero .logo{width:120px;height:120px;margin:0 auto 18px}
+.hero h1{font-size:44px;font-weight:300;letter-spacing:.5px}
+.hero h1 b{font-weight:500}
+.hero p.sub{color:#a7adb5;font-size:19px;font-weight:300;margin:12px 0 26px}
+.dl-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:10px}
+a.dl{background:#78b743;color:#fff!important;font-size:17px;border-radius:4px;padding:13px 34px;display:inline-block}
+a.dl small{display:block;font-size:12px;font-weight:400;opacity:.9;margin-top:2px}
+a.gh{background:transparent;border:1px solid #6b7178;color:#e6e8eb!important;font-size:17px;border-radius:4px;padding:13px 30px;display:inline-block}
+.hero .rev{font-size:13px;color:#8b9199;margin:14px 0 0}
+.hero .rev b{color:#c8cdd2}
+/* screenshot band */
+.shot{background:#212428;padding:0;text-align:center}
+.shot .frame{max-width:960px;margin:0 auto;position:relative}
+.shot img{width:100%;display:block;border-radius:6px 6px 0 0;box-shadow:0 -8px 40px rgba(0,0,0,.5)}
+/* features */
+.features{background:#efefef;color:#33373d;padding:56px 20px;text-align:center}
+.features h2{font-weight:300;font-size:30px;margin-bottom:8px}
+.features p.lead{color:#6b7178;max-width:640px;margin:0 auto 36px}
+.grid{max-width:960px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:28px;text-align:left}
+.grid h3{font-size:17px;margin-bottom:6px}
+.grid p{font-size:14px;color:#5c6166}
+/* ladder */
+.ladder{background:#2b2f35;padding:52px 20px;text-align:center}
+.ladder h2{font-weight:300;font-size:28px;margin-bottom:6px}
+.ladder p{color:#a7adb5;margin-bottom:22px}
+table{margin:0 auto;border-collapse:collapse;font-size:14px;min-width:min(560px,92vw)}
+td,th{border-bottom:1px solid #43484f;padding:9px 14px;text-align:left}
+th{color:#8b9199;font-weight:500}
+/* footer */
+footer{background:#212428;color:#8b9199;font-size:13px;padding:30px 20px;text-align:center}
+footer a{color:#a7adb5;margin:0 10px}
+code{background:rgba(255,255,255,.08);padding:.1em .4em;border-radius:4px;font-size:.92em}
+.features code{background:rgba(0,0,0,.07)}
 </style>
-<h1>Atom <span class="tag">— tmiland-lab revival</span></h1>
-<p>Active fork of <a href="https://github.com/atom/atom">atom/atom</a> <code>v1.63.1</code>, climbing Electron rung-by-rung on pure lineage (this tree + our patches, stock Electron). Upstream archived Atom in Dec 2022; this fork builds, tests, and ships every rung.</p>
-<div class="card" id="latest"><strong>Latest release:</strong> <span id="ver">loading…</span><div id="assets"></div>
-<p class="note">Links resolve live from the <a href="https://github.com/tmiland-lab/atom/releases">releases page</a> — always current.</p></div>
-<div class="card"><strong>Install (Linux)</strong><br><code>sudo dpkg -i atom-amd64.deb</code> &nbsp;or&nbsp; <code>sudo rpm -i atom.x86_64.rpm</code><br><span class="note">macOS <code>atom-mac.zip</code> and Windows installer in progress (unsigned builds).</span></div>
-<div class="card"><strong>Packages</strong> — no registry: <code>apm install owner/repo</code> straight from GitHub.<br><strong>AI coding:</strong> <a href="https://github.com/tmiland-lab/atom-ai">tmiland-lab/atom-ai</a> <code>apm install tmiland-lab/atom-ai</code></div>
-<div class="card"><strong>Chase ladder</strong><table><tr><th>Base</th><th>Rungs</th><th>Notes</th></tr><tr><td>debian13.1</td><td>Electron 11</td><td>modern-Debian baseline, CI .deb</td></tr><tr><td>e13.1 → e36.1</td><td>Electron 13 → 36</td><td>every rung CI-built + released</td></tr></table><p class="note">Per-rung reports: <a href="https://github.com/tmiland-lab/atom/issues/1">issue #1</a>. Build recipe: <a href="https://github.com/tmiland-lab/atom/blob/electron-upgrade-e36/docs/building-debian13.md">docs/building-debian13.md</a>. Source: <a href="https://github.com/tmiland-lab/atom">tmiland-lab/atom</a>.</p></div>
+<div class="hero">
+<svg class="logo" viewBox="0 0 120 120"><circle cx="60" cy="60" r="10" fill="#78b743"/><g fill="none" stroke="#78b743" stroke-width="5"><ellipse cx="60" cy="60" rx="52" ry="20"/><ellipse cx="60" cy="60" rx="52" ry="20" transform="rotate(60 60 60)"/><ellipse cx="60" cy="60" rx="52" ry="20" transform="rotate(120 60 60)"/></g><circle cx="108" cy="60" r="6" fill="#5da332"/><circle cx="36" cy="101" r="6" fill="#5da332"/><circle cx="36" cy="19" r="6" fill="#5da332"/></svg>
+<h1>A hackable <b>text editor</b> for the 21st Century</h1>
+<p class="sub">Revived by <b>tmiland-lab</b> — Atom 1.63.1 climbing modern Electron, rung by rung.</p>
+<div class="dl-row"><a class="dl" id="dlbtn" href="https://github.com/tmiland-lab/atom/releases">Download<span style="display:block;font-size:12px" id="dlver">latest release</span></a><a class="gh" href="https://github.com/tmiland-lab/atom">View on GitHub</a></div>
+<p class="rev">Now shipping: <b id="rung">Atom 1.63.1 on Electron 36</b> · <a href="https://github.com/tmiland-lab/atom/issues/1">chase log</a></p>
+<br>
+</div>
+<div class="shot"><div class="frame"><img src="https://user-images.githubusercontent.com/378023/49132478-f4b77680-f31f-11e8-9e10-e8454d8d9b7e.png" alt="Atom screenshot"></div></div>
+<div class="features">
+<h2>Everything you loved, still here</h2>
+<p class="lead">Cross-platform editing, built-in package manager, smart autocompletion, file system browser, multiple panes — plus what Atom always missed:</p>
+<div class="grid">
+<div><h3>Modern Electron</h3><p>Climbing the Electron ladder on pure lineage — currently Electron 36 (Chromium 136), every rung CI-built and released.</p></div>
+<div><h3>Packages from GitHub</h3><p>No registry needed: <code>apm install owner/repo</code> installs straight from source, including native modules.</p></div>
+<div><h3>AI coding inside</h3><p><a href="https://github.com/tmiland-lab/atom-ai">atom-ai</a> bridges CLI agents (opencode, aider, claude) into a dock panel — no API keys.</p></div>
+<div><h3>Linux, mac, Windows</h3><p><code>.deb</code> + <code>.rpm</code> shipping; mac zip and Windows installer landing via CI.</p></div>
+</div>
+</div>
+<div class="ladder">
+<h2>The chase ladder</h2>
+<p>Debian baseline plus every Electron rung, all CI-built. Full per-rung reports in <a href="https://github.com/tmiland-lab/atom/issues/1">issue #1</a>.</p>
+<table><tr><th>Base</th><th>Rungs</th><th>Status</th></tr><tr><td>v1.63.1-debian13.1</td><td>Electron 11</td><td>baseline, green</td></tr><tr><td>e13.1 → e36.1</td><td>Electron 13 → 36</td><td id="ladder-live">all green, released</td></tr></table>
+</div>
+<footer><a href="https://github.com/tmiland-lab/atom">Source</a><a href="https://github.com/tmiland-lab/atom/releases">Releases</a><a href="https://github.com/tmiland-lab/atom/issues/1">Chase log</a><a href="https://github.com/tmiland-lab/atom/blob/electron-upgrade-e36/docs/building-debian13.md">Building</a><br><br>Fork of <a href="https://github.com/atom/atom">atom/atom</a> (MIT). Original atom.io design homage.</footer>
 <script>
 fetch("https://api.github.com/repos/tmiland-lab/atom/releases/latest").then(r=>r.json()).then(d=>{
-document.getElementById("ver").textContent=d.tag_name+" ("+d.published_at.slice(0,10)+")";
-let box=document.getElementById("assets");box.innerHTML="";
-(d.assets||[]).forEach(a=>{let b=document.createElement("a");b.className="btn";b.href=a.browser_download_url;b.textContent=a.name;box.appendChild(b);});
-}).catch(()=>{document.getElementById("ver").textContent="see releases page";});
+let deb=(d.assets||[]).find(a=>a.name.endsWith(".deb"));
+document.getElementById("dlver").textContent=d.tag_name+" · "+d.published_at.slice(0,10);
+if(deb)document.getElementById("dlbtn").href=deb.browser_download_url;
+let m=d.tag_name.match(/e(\d+)/);if(m)document.getElementById("rung").textContent="Atom 1.63.1 on Electron "+m[1];
+}).catch(()=>{});
 </script>
