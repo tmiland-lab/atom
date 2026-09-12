@@ -122,15 +122,28 @@ code{background:rgba(255,255,255,.08);padding:.1em .4em;border-radius:4px;font-s
 </div>
 <footer><div class="cols"><div><h4>Download</h4><a href="https://github.com/tmiland-lab/atom/releases">Releases</a><a href="https://github.com/tmiland-lab/atom/releases/latest">Latest</a></div><div><h4>Project</h4><a href="https://github.com/tmiland-lab/atom">Source</a><a href="https://github.com/tmiland-lab/atom/issues/1">Chase log</a><a href="https://github.com/tmiland-lab/atom-ai">atom-ai</a></div><div><h4>Develop</h4><a href="https://github.com/tmiland-lab/atom/blob/electron-upgrade-e36/docs/building-debian13.md">Building</a><a href="https://github.com/tmiland-lab">tmiland-lab org</a></div></div>Fork of <a style="display:inline" href="https://github.com/atom/atom">atom/atom</a> (MIT) · atom.io design homage · formerly <a style="display:inline" href="https://atom.io">atom.io</a></footer>
 <script>
+function detectOS(){
+  var ua=navigator.userAgent, plat=(navigator.userAgentData&&navigator.userAgentData.platform)||navigator.platform||"";
+  function hit(p){return ua.indexOf(p)>-1||plat.indexOf(p)>-1;}
+  if(hit("Mac"))return{label:"macOS — dmg/zip",pick:function(a){return /\b(mac|darwin)\b|\.dmg$|\.pkg$/.test(a.name.toLowerCase());}};
+  if(hit("Win"))return{label:"Windows — Setup.exe",pick:function(a){return /\.exe$/.test(a.name.toLowerCase());}};
+  if(hit("Linux")||hit("X11")){
+    if(/fedora|rhel|centos|opensuse|suse|rocky|alma|amazon/i.test(ua))
+      return{label:"Fedora/RHEL — rpm",pick:function(a){return /\.rpm$/.test(a.name.toLowerCase());}};
+    return{label:"Debian/Ubuntu — deb",pick:function(a){return /\.deb$/.test(a.name.toLowerCase());}};
+  }
+  return{label:"latest release",pick:function(a){return /\.deb$/.test(a.name.toLowerCase());}};
+}
+var os=detectOS();
 fetch("https://api.github.com/repos/tmiland-lab/atom/releases/latest").then(r=>r.json()).then(d=>{
-let deb=(d.assets||[]).find(a=>a.name.endsWith(".deb"));
-document.getElementById("dlver").textContent=d.tag_name+" · "+d.published_at.slice(0,10);
+var asset=(d.assets||[]).find(os.pick)||(d.assets||[]).find(a=>/\.deb$/.test(a.name));
+document.getElementById("dlver").textContent=d.tag_name+" · "+d.published_at.slice(0,10)+" · for "+os.label;
 document.getElementById("st-date").textContent=d.published_at.slice(0,10);
-if(deb)document.getElementById("dlbtn").href=deb.browser_download_url;
-let m=d.tag_name.match(/e(\d+)/);if(m)document.getElementById("rung").textContent="Atom 1.63.1 on Electron "+m[1];
+if(asset)document.getElementById("dlbtn").href=asset.browser_download_url;
+var m=d.tag_name.match(/e(\d+)/);if(m)document.getElementById("rung").textContent="Atom 1.63.1 on Electron "+m[1];
 }).catch(()=>{});
 fetch("https://api.github.com/repos/tmiland-lab/atom/releases?per_page=100").then(r=>r.json()).then(d=>{
 if(Array.isArray(d)){document.getElementById("st-rel").textContent=d.length+"+";
-let es=new Set();d.forEach(x=>{let m=(x.tag_name||"").match(/e(\d+)\./);if(m)es.add(m[1])});if(es.size)document.getElementById("st-rungs").textContent=es.size;}
+var es=new Set();d.forEach(x=>{var m=(x.tag_name||"").match(/e(\d+)\./);if(m)es.add(m[1])});if(es.size)document.getElementById("st-rungs").textContent=es.size;}
 }).catch(()=>{});
 </script>
