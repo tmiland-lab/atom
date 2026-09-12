@@ -136,7 +136,7 @@ function detectOS(){
 }
 var os=detectOS();
 fetch("https://api.github.com/repos/tmiland-lab/atom/releases/latest").then(r=>r.json()).then(d=>{
-var asset=(d.assets||[]).find(os.pick)||(d.assets||[]).find(a=>/\.deb$/.test(a.name));
+var asset=(d.assets||[]).find(os.pick);
 document.getElementById("st-date").textContent=d.published_at.slice(0,10);
 var m=d.tag_name.match(/e(\d+)/);if(m)document.getElementById("rung").textContent="Atom 1.63.1 on Electron "+m[1];
 if(asset){
