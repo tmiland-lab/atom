@@ -137,10 +137,15 @@ function detectOS(){
 var os=detectOS();
 fetch("https://api.github.com/repos/tmiland-lab/atom/releases/latest").then(r=>r.json()).then(d=>{
 var asset=(d.assets||[]).find(os.pick)||(d.assets||[]).find(a=>/\.deb$/.test(a.name));
-document.getElementById("dlver").textContent=d.tag_name+" · "+d.published_at.slice(0,10)+" · for "+os.label;
 document.getElementById("st-date").textContent=d.published_at.slice(0,10);
-if(asset)document.getElementById("dlbtn").href=asset.browser_download_url;
 var m=d.tag_name.match(/e(\d+)/);if(m)document.getElementById("rung").textContent="Atom 1.63.1 on Electron "+m[1];
+if(asset){
+  document.getElementById("dlver").textContent=d.tag_name+" · "+d.published_at.slice(0,10)+" · for "+os.label;
+  document.getElementById("dlbtn").href=asset.browser_download_url;
+}else{
+  document.getElementById("dlver").textContent=os.label+" — coming soon";
+  document.getElementById("dlbtn").href="https://github.com/tmiland-lab/atom/releases";
+}
 }).catch(()=>{});
 fetch("https://api.github.com/repos/tmiland-lab/atom/releases?per_page=100").then(r=>r.json()).then(d=>{
 if(Array.isArray(d)){document.getElementById("st-rel").textContent=d.length+"+";
